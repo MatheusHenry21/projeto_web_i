@@ -4,6 +4,8 @@ from .models import ItemVenda, Produto
 
 
 class ItemVendaForm(forms.ModelForm):
+    email = forms.EmailField(label='E-mail para confirmação', required=False)
+
     class Meta:
         model = ItemVenda
         fields = ('produto', 'quantidade')

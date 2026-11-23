@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import Http404
 from django.shortcuts import redirect, render
 
@@ -23,6 +25,14 @@ def registrar_venda(request):
             quantidade = form.cleaned_data['quantidade']
             try:
                 venda = criar_venda(produto.id, quantidade)
+                email = form.cleaned_data['email']
+                if email:
+                    send_mail(
+                        'Compra realizada',
+                        f'Sua compra foi realizada. Número da venda: {venda.id}.',
+                        settings.DEFAULT_FROM_EMAIL,
+                        [email],
+                    )
                 return redirect('detalhe_venda', venda_id=venda.id)
             except ValueError as erro:
                 form.add_error('quantidade', str(erro))
