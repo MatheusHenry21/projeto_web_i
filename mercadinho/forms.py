@@ -10,8 +10,8 @@ class ItemVendaForm(forms.ModelForm):
         model = ItemVenda
         fields = ('produto', 'quantidade')
         widgets = {
-            'produto': forms.Select(attrs={'class': 'campo'}),
-            'quantidade': forms.NumberInput(attrs={'class': 'campo', 'min': 1}),
+            'produto': forms.Select(),
+            'quantidade': forms.NumberInput(attrs={'min': 1}),
         }
 
     def __init__(self, *args, **kwargs):
