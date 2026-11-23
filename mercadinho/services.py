@@ -1,22 +1,28 @@
 from django.db import transaction
 
-from .models import ItemVenda, Venda
+from . import repositories
 
 
-def registrar_venda(produto, quantidade):
+def listar_produtos():
+    return repositories.listar_produtos()
+
+
+def listar_vendas():
+    return repositories.listar_vendas()
+
+
+def buscar_venda(venda_id):
+    return repositories.buscar_venda(venda_id)
+
+
+def registrar_venda(produto_id, quantidade):
+    produto = repositories.buscar_produto(produto_id)
     if quantidade > produto.estoque:
         raise ValueError('Quantidade maior que o estoque disponível.')
 
     with transaction.atomic():
-        venda = Venda.objects.create()
-        item = ItemVenda.objects.create(
-            venda=venda,
-            produto=produto,
-            quantidade=quantidade,
-            preco_unitario=produto.preco,
-        )
-
-        produto.estoque -= quantidade
-        produto.save()
+        venda = repositories.criar_venda()
+        repositories.criar_item_venda(venda, produto, quantidade)
+        repositories.baixar_estoque(produto, quantidade)
 
     return venda
