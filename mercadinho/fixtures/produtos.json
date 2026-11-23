@@ -1,0 +1,35 @@
+[
+  {
+    "model": "mercadinho.produto",
+    "pk": 1,
+    "fields": {
+      "nome": "Arroz 5kg",
+      "descricao": "Pacote de arroz branco",
+      "preco": "24.90",
+      "estoque": 20,
+      "ativo": true
+    }
+  },
+  {
+    "model": "mercadinho.produto",
+    "pk": 2,
+    "fields": {
+      "nome": "Feijão 1kg",
+      "descricao": "Pacote de feijão carioca",
+      "preco": "8.50",
+      "estoque": 15,
+      "ativo": true
+    }
+  },
+  {
+    "model": "mercadinho.produto",
+    "pk": 3,
+    "fields": {
+      "nome": "Leite 1L",
+      "descricao": "Leite integral",
+      "preco": "5.79",
+      "estoque": 30,
+      "ativo": true
+    }
+  }
+]
