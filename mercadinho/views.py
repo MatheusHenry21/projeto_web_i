@@ -20,8 +20,6 @@ def registrar_venda(request):
                 item.save()
                 item.produto.estoque -= item.quantidade
                 item.produto.save()
-                item.venda.total = item.preco_unitario * item.quantidade
-                item.venda.save()
                 return redirect('detalhe_venda', venda_id=item.venda.id)
             form.add_error('quantidade', 'Quantidade maior que o estoque disponível.')
     else:

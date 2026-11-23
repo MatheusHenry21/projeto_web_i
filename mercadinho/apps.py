@@ -5,3 +5,6 @@ class MercadinhoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'mercadinho'
 
+    def ready(self):
+        import mercadinho.signals
+
