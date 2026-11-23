@@ -1,13 +1,14 @@
 {% extends 'mercadinho/base.html' %}
+{% load i18n l10n %}
 {% block titulo %}Produtos | Mercadinho{% endblock %}
 {% block conteudo %}
-<h2>Produtos disponíveis</h2>
+<h2>{% translate "Produtos disponíveis" %}</h2>
 <p>Cadastre e ajuste os produtos pela área de administração.</p>
 <table>
     <thead><tr><th>Produto</th><th>Preço</th><th>Estoque</th></tr></thead>
     <tbody>
     {% for produto in produtos %}
-        <tr><td>{{ produto.nome }}</td><td>R$ {{ produto.preco }}</td><td>{{ produto.estoque }}</td></tr>
+        <tr><td>{{ produto.nome }}</td><td>R$ {{ produto.preco|localize }}</td><td>{{ produto.estoque }}</td></tr>
     {% empty %}
         <tr><td colspan="3">Nenhum produto cadastrado.</td></tr>
     {% endfor %}
