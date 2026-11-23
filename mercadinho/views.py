@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ItemVendaForm
-from .models import ItemVenda, Produto, Venda
+from .models import Produto, Venda
+from .services import registrar_venda as criar_venda
 
 
 def inicio(request):
@@ -13,15 +14,13 @@ def registrar_venda(request):
     if request.method == 'POST':
         form = ItemVendaForm(request.POST)
         if form.is_valid():
-            item = form.save(commit=False)
-            if item.quantidade <= item.produto.estoque:
-                item.venda = Venda.objects.create()
-                item.preco_unitario = item.produto.preco
-                item.save()
-                item.produto.estoque -= item.quantidade
-                item.produto.save()
-                return redirect('detalhe_venda', venda_id=item.venda.id)
-            form.add_error('quantidade', 'Quantidade maior que o estoque disponível.')
+            produto = form.cleaned_data['produto']
+            quantidade = form.cleaned_data['quantidade']
+            try:
+                venda = criar_venda(produto, quantidade)
+                return redirect('detalhe_venda', venda_id=venda.id)
+            except ValueError as erro:
+                form.add_error('quantidade', str(erro))
     else:
         form = ItemVendaForm()
     return render(request, 'mercadinho/nova_venda.html', {'form': form})
