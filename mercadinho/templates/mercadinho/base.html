@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Mercadinho{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 32px auto; padding: 0 16px; color: #222; }
+        nav { display: flex; gap: 8px; margin-bottom: 24px; }
+        a.botao, button { display: inline-block; padding: 8px 12px; border: 1px solid #555; background: #f2f2f2; color: #222; text-decoration: none; cursor: pointer; }
+        a.botao:hover, button:hover { background: #e2e2e2; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+        .campo { display: block; padding: 8px; margin: 6px 0 14px; min-width: 240px; }
+        .mensagem { padding: 10px; background: #eef7ee; }
+        .erro { color: #a00; }
+    </style>
+</head>
+<body>
+    <h1>Mercadinho</h1>
+    <nav>
+        <a class="botao" href="{% url 'inicio' %}">Produtos</a>
+        <a class="botao" href="{% url 'registrar_venda' %}">Nova venda</a>
+        <a class="botao" href="{% url 'historico_vendas' %}">Vendas</a>
+    </nav>
+    {% for message in messages %}<p class="mensagem">{{ message }}</p>{% endfor %}
+    {% block conteudo %}{% endblock %}
+</body>
+</html>

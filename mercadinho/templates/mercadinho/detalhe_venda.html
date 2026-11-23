@@ -1,0 +1,16 @@
+{% extends 'mercadinho/base.html' %}
+{% block titulo %}Venda #{{ venda.id }} | Mercadinho{% endblock %}
+{% block conteudo %}
+<h2>Venda #{{ venda.id }}</h2>
+<p>Data: {{ venda.criada_em|date:'d/m/Y H:i' }}</p>
+<table>
+    <thead><tr><th>Produto</th><th>Quantidade</th><th>Preço unitário</th><th>Subtotal</th></tr></thead>
+    <tbody>
+    {% for item in venda.itens.all %}
+        <tr><td>{{ item.produto.nome }}</td><td>{{ item.quantidade }}</td><td>R$ {{ item.preco_unitario }}</td><td>R$ {{ item.subtotal }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h3>Total: R$ {{ venda.total }}</h3>
+<a class="botao" href="{% url 'historico_vendas' %}">Voltar às vendas</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'mercadinho/base.html' %}
+{% block titulo %}Nova venda | Mercadinho{% endblock %}
+{% block conteudo %}
+<h2>Registrar venda</h2>
+<form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="erro">{{ form.non_field_errors }}</p>{% endif %}
+    {{ form.as_p }}
+    <button type="submit">Registrar venda</button>
+</form>
+{% endblock %}
